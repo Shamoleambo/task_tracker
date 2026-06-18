@@ -12,6 +12,10 @@ public class Task {
         this.status = Status.NOT_DONE;
     }
 
+    public String getId() {
+        return this.id;
+    }
+
     public void markInProgress() {
         this.status = Status.IN_PROGRESS;
     }
@@ -22,5 +26,11 @@ public class Task {
 
     public void updateDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "id: " + this.id.strip() + "; description: " + this.description.strip() + "; status: " +
+                this.status.toString();
     }
 }
