@@ -39,4 +39,23 @@ public class TaskTracker {
 
         return storedTasks;
     }
+
+    private void saveTask() throws IOException {
+        if (!Files.exists(FILE_PATH)) {
+            Files.createFile(FILE_PATH);
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("[\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(tasks.get(i).toJson());
+            if (i < tasks.size() - 1) {
+                sb.append(",\n");
+            }
+        }
+        sb.append("\n]");
+
+        String jsonContent = sb.toString();
+        Files.writeString(FILE_PATH, jsonContent);
+    }
 }
