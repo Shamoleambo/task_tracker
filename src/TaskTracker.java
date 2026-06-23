@@ -84,6 +84,13 @@ public class TaskTracker {
         task.markDone();
     }
 
+    public void listTasks(String type) {
+        for (Task task : tasks) {
+            String status = task.getStatus().toString().strip();
+            if (type.equals("All") || status.equals(type)) System.out.println(task.toString());
+        }
+    }
+
     public Task findTask(String id) throws IllegalArgumentException {
         for (Task task : tasks) {
             if (task.getId().equals(id)) {
