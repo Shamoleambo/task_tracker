@@ -91,6 +91,14 @@ public class TaskTracker {
         }
     }
 
+    public void quit() {
+        try {
+            this.saveTasks();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public Task findTask(String id) throws IllegalArgumentException {
         for (Task task : tasks) {
             if (task.getId().equals(id)) {
