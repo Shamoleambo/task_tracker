@@ -69,6 +69,11 @@ public class TaskTracker {
         task.updateDescription(newDescription);
     }
 
+    public void deleteTask(String id) {
+        Task task = findTask(id);
+        tasks.remove(task);
+    }
+
     public Task findTask(String id) throws IllegalArgumentException {
         for (Task task : tasks) {
             if (task.getId().equals(id)) {
