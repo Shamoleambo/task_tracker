@@ -47,9 +47,9 @@ public class TaskTracker {
 
         StringBuilder sb = new StringBuilder();
         sb.append("[\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append(tasks.get(i).toJson());
-            if (i < tasks.size() - 1) {
+        for (int i = 0; i < this.tasks.size(); i++) {
+            sb.append(this.tasks.get(i).toJson());
+            if (i < this.tasks.size() - 1) {
                 sb.append(",\n");
             }
         }
@@ -71,7 +71,17 @@ public class TaskTracker {
 
     public void deleteTask(String id) {
         Task task = findTask(id);
-        tasks.remove(task);
+        this.tasks.remove(task);
+    }
+
+    public void markInProgress(String id) {
+        Task task = findTask(id);
+        task.markInProgress();
+    }
+
+    public void markDone(String id) {
+        Task task = findTask(id);
+        task.markDone();
     }
 
     public Task findTask(String id) throws IllegalArgumentException {
