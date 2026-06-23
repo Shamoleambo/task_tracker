@@ -7,7 +7,7 @@ import java.util.List;
 public class TaskTracker {
 
     // what do I put as a variable in the Path.of(...)?
-    private final Path FILE_PATH = Path.of("");
+    private final Path FILE_PATH = Path.of("/home/tidz/program/task_tracker/tasks.json");
     private List<Task> tasks;
 
     public TaskTracker() {
