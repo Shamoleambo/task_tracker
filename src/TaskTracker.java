@@ -40,7 +40,7 @@ public class TaskTracker {
         return storedTasks;
     }
 
-    private void saveTask() throws IOException {
+    private void saveTasks() throws IOException {
         if (!Files.exists(FILE_PATH)) {
             Files.createFile(FILE_PATH);
         }
@@ -58,4 +58,10 @@ public class TaskTracker {
         String jsonContent = sb.toString();
         Files.writeString(FILE_PATH, jsonContent);
     }
+
+    public void addTask(String description) {
+        Task newTask = new Task(description);
+        this.tasks.add(newTask);
+    }
 }
+
