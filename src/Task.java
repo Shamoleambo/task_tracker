@@ -57,6 +57,10 @@ public class Task {
         return task;
     }
 
+    public Status getStatus() {
+        return this.status;
+    }
+
     @Override
     public String toString() {
         return "id: " + this.id.strip() + "; description: " + this.description.strip() + "; status: " +
