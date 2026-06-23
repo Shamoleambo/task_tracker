@@ -63,5 +63,18 @@ public class TaskTracker {
         Task newTask = new Task(description);
         this.tasks.add(newTask);
     }
-}
 
+    public void updateTask(String id, String newDescription) {
+        Task task = findTask(id);
+        task.updateDescription(newDescription);
+    }
+
+    public Task findTask(String id) throws IllegalArgumentException {
+        for (Task task : tasks) {
+            if (task.getId().equals(id)) {
+                return task;
+            }
+        }
+        throw new IllegalArgumentException("Task wit ID " + id + " not found");
+    }
+}
