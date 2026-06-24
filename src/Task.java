@@ -1,18 +1,17 @@
-import java.util.UUID;
-
 public class Task {
 
-    private String id;
+    private int id;
+    private static int lastId = 0; //private variable to keep track of the last ID assigned
     private String description;
     private Status status;
 
     public Task(String description) {
-        this.id = UUID.randomUUID().toString();
+        this.id = lastId++;
         this.description = description;
         this.status = Status.TODO;
     }
 
-    public String getId() {
+    public int getId() {
         return this.id;
     }
 
@@ -29,14 +28,14 @@ public class Task {
     }
 
     public String toJson() {
-        return "{\"id\":\"" + this.id.strip() + "\", \"description:\"" + this.description.strip() + "\", \"status\":\"" + this.status.toString() + "\"}";
+        return "{\"id\":\"" + this.id + "\", \"description:\"" + this.description.strip() + "\", \"status\":\"" + this.status.toString() + "\"}";
     }
 
 
     public static Task fromJson(String json) {
         String[] json1 = json.replace("{", "").replace("}", "").replace("\"", "").replace(":", ",").split(",");
 
-        String id = json1[1];
+        String id = json1[1].strip();
         String description = json1[3];
         Status status;
 
@@ -51,8 +50,12 @@ public class Task {
         }
 
         Task task = new Task(description);
-        task.id = id;
+        task.id = Integer.parseInt(id);
         task.status = status;
+
+        if (Integer.parseInt(id) > lastId) {
+            lastId = Integer.parseInt(id);
+        }
 
         return task;
     }
@@ -63,7 +66,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "id: " + this.id.strip() + "; description: " + this.description.strip() + "; status: " +
+        return "id: " + this.id + "; description: " + this.description.strip() + "; status: " +
                 this.status.toString();
     }
 }
