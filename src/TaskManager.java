@@ -4,13 +4,12 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskTracker {
+public class TaskManager {
 
-    // what do I put as a variable in the Path.of(...)?
     private final Path FILE_PATH = Path.of("/home/tidz/program/task_tracker/tasks.json");
     private List<Task> tasks;
 
-    public TaskTracker() {
+    public TaskManager() {
         this.tasks = loadTasks();
     }
 
@@ -40,11 +39,7 @@ public class TaskTracker {
         return storedTasks;
     }
 
-    private void saveTasks() throws IOException {
-        if (!Files.exists(FILE_PATH)) {
-            Files.createFile(FILE_PATH);
-        }
-
+    public void saveTasks() {
         StringBuilder sb = new StringBuilder();
         sb.append("[\n");
         for (int i = 0; i < this.tasks.size(); i++) {
@@ -56,12 +51,17 @@ public class TaskTracker {
         sb.append("\n]");
 
         String jsonContent = sb.toString();
-        Files.writeString(FILE_PATH, jsonContent);
+        try {
+            Files.writeString(FILE_PATH, jsonContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addTask(String description) {
         Task newTask = new Task(description);
         this.tasks.add(newTask);
+        System.out.println("Task added successfully (ID: " + newTask.getId() + ")");
     }
 
     public void updateTask(String id, String newDescription) {
@@ -91,17 +91,9 @@ public class TaskTracker {
         }
     }
 
-    public void quit() {
-        try {
-            this.saveTasks();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public Task findTask(String id) throws IllegalArgumentException {
         for (Task task : tasks) {
-            if (task.getId().equals(id)) {
+            if (task.getId() == Integer.parseInt(id)) {
                 return task;
             }
         }
