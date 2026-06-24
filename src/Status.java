@@ -1,6 +1,6 @@
 public enum Status {
 
-    NOT_DONE("Not done"),
+    TODO("Todo"),
     IN_PROGRESS("In progress"),
     DONE("Done");
 

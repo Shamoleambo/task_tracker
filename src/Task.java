@@ -9,7 +9,7 @@ public class Task {
     public Task(String description) {
         this.id = UUID.randomUUID().toString();
         this.description = description;
-        this.status = Status.NOT_DONE;
+        this.status = Status.TODO;
     }
 
     public String getId() {
@@ -42,8 +42,8 @@ public class Task {
 
         String s = json1[5].strip();
 
-        if (s.equals("Not Done")) {
-            status = Status.NOT_DONE;
+        if (s.equals("Todo")) {
+            status = Status.TODO;
         } else if (s.equals("In progress")) {
             status = Status.IN_PROGRESS;
         } else {
