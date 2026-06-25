@@ -1,14 +1,20 @@
+import java.time.LocalDateTime;
+
 public class Task {
 
     private int id;
     private static int lastId = 0; //private variable to keep track of the last ID assigned
     private String description;
     private Status status;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public Task(String description) {
         this.id = lastId++;
         this.description = description;
         this.status = Status.TODO;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     public int getId() {
@@ -17,14 +23,17 @@ public class Task {
 
     public void markInProgress() {
         this.status = Status.IN_PROGRESS;
+        this.updatedAt = LocalDateTime.now();
     }
 
     public void markDone() {
         this.status = Status.DONE;
+        this.updatedAt = LocalDateTime.now();
     }
 
     public void updateDescription(String description) {
         this.description = description;
+        this.updatedAt = LocalDateTime.now();
     }
 
     public String toJson() {
