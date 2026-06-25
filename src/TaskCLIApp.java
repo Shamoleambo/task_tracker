@@ -38,7 +38,7 @@ public class TaskCLIApp {
                     System.out.println("Usage: task-cli mark-in-progress <id>");
                     return;
                 }
-                taskManager.markDone(args[1]);
+                taskManager.markInProgress(args[1]);
                 System.out.println("Task marked as In Progress (ID: " + args[1] + ")");
                 break;
             case "mark-done":
@@ -48,6 +48,7 @@ public class TaskCLIApp {
                 }
                 taskManager.markDone(args[1]);
                 System.out.println("Task marked as Done (ID: " + args[1] + ")");
+                break;
             case "list":
                 if (args.length < 2) {
                     taskManager.listTasks("All");
