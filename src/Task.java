@@ -1,9 +1,11 @@
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Task {
 
     private int id;
     private static int lastId = 0; //private variable to keep track of the last ID assigned
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
     private String description;
     private Status status;
     private LocalDateTime createdAt;
@@ -37,7 +39,9 @@ public class Task {
     }
 
     public String toJson() {
-        return "{\"id\":\"" + this.id + "\", \"description:\"" + this.description.strip() + "\", \"status\":\"" + this.status.toString() + "\"}";
+        return "{\"id\":\"" + this.id + "\", \"description:\"" + this.description.strip() +
+                "\", \"status\":\"" + this.status.toString() + "\", \"createdAt\":\"" +
+                this.createdAt.format(formatter) + "\", \"updatedAt\":\"" + this.updatedAt.format(formatter) + "\"}";
     }
 
 
@@ -46,21 +50,17 @@ public class Task {
 
         String id = json1[1].strip();
         String description = json1[3];
-        Status status;
-
         String s = json1[5].strip();
+        Status status = Status.valueOf(s.toUpperCase().replace(" ", "_"));
+        String createdAtStr = json1[7];
+        String updatedAtStr = json1[9];
 
-        if (s.equals("Todo")) {
-            status = Status.TODO;
-        } else if (s.equals("In progress")) {
-            status = Status.IN_PROGRESS;
-        } else {
-            status = Status.DONE;
-        }
 
         Task task = new Task(description);
         task.id = Integer.parseInt(id);
         task.status = status;
+        task.createdAt = LocalDateTime.parse(createdAtStr, formatter);
+        task.updatedAt = LocalDateTime.parse(updatedAtStr, formatter);
 
         if (Integer.parseInt(id) > lastId) {
             lastId = Integer.parseInt(id);
@@ -76,6 +76,7 @@ public class Task {
     @Override
     public String toString() {
         return "id: " + this.id + "; description: " + this.description.strip() + "; status: " +
-                this.status.toString();
+                this.status.toString() + ", createdAt: " + this.createdAt.format(formatter) +
+                ", updatedAt: " + this.updatedAt.format(formatter);
     }
 }
