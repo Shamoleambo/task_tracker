@@ -77,7 +77,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "id: " + this.id + "; description: " + this.description.strip() + "; status: " +
+        return "id: " + this.id + ", description: " + this.description.strip() + ", status: " +
                 this.status.toString() + ", createdAt: " + this.createdAt.format(formatter) +
                 ", updatedAt: " + this.updatedAt.format(formatter);
     }
