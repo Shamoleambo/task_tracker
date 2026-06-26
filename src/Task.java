@@ -12,7 +12,7 @@ public class Task {
     private LocalDateTime updatedAt;
 
     public Task(String description) {
-        this.id = lastId++;
+        this.id = ++lastId;
         this.description = description;
         this.status = Status.TODO;
         this.createdAt = LocalDateTime.now();
