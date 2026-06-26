@@ -86,6 +86,8 @@ public class TaskManager {
     }
 
     public void listTasks(String type) {
+        if (this.tasks.isEmpty())
+            throw new IllegalStateException("Cannot display list for it has not been created yet.");
         for (Task task : tasks) {
             String status = task.getStatus().toString().strip();
             if (type.equals("All") || status.equals(type)) System.out.println(task.toString());
