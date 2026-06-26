@@ -24,6 +24,7 @@ public class TaskManager {
         try {
             String jsonContent = Files.readString(FILE_PATH);
             String[] taskList = jsonContent.replace("[", "").replace("]", "").split("},");
+            if (taskList.length == 1 && taskList[0].isBlank()) return storedTasks;
 
             for (String taskJson : taskList) {
                 if (!taskJson.endsWith("}")) {
